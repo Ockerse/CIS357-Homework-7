@@ -10,6 +10,9 @@
         android:id="@+id/titleLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:text="Length Converter"
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,6 +24,8 @@
         android:id="@+id/fromLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="From"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleLabel" />
@@ -29,53 +34,82 @@
         android:id="@+id/toLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="To"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fromTextField" />
 
     <EditText
         android:id="@+id/fromTextField"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="Enter From Value"
         android:inputType="numberDecimal"
+        app:layout_constraintBottom_toTopOf="@+id/toLabel"
+        app:layout_constraintEnd_toStartOf="@+id/fromValue"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fromLabel" />
 
     <Button
-        android:id="@+id/calculateButton"
+        android:id="@+id/clearButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Calculate"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="Clear"
+        app:layout_constraintEnd_toStartOf="@+id/modeButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/calculateButton"
         app:layout_constraintTop_toBottomOf="@+id/toTextField" />
 
     <Button
         android:id="@+id/modeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:text="Mode"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/clearButton"
         app:layout_constraintTop_toBottomOf="@+id/toTextField" />
 
     <Button
-        android:id="@+id/clearButton"
+        android:id="@+id/calculateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Clear"
-        app:layout_constraintEnd_toStartOf="@+id/modeButton"
-        app:layout_constraintStart_toEndOf="@+id/calculateButton"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="Calculate"
+        app:layout_constraintEnd_toStartOf="@+id/clearButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toTextField" />
 
     <EditText
         android:id="@+id/toTextField"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="Enter To Value"
         android:inputType="numberDecimal"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/clearButton"
+        app:layout_constraintEnd_toStartOf="@+id/toValue"
+        app:layout_constraintStart_toStartOf="@+id/toLabel"
         app:layout_constraintTop_toBottomOf="@+id/toLabel" />
 
     <androidx.appcompat.widget.Toolbar
@@ -91,22 +125,26 @@
 
     <TextView
         android:id="@+id/fromValue"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:text="Yards"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fromTextField"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fromTextField"
-        app:layout_constraintTop_toBottomOf="@+id/titleLabel" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/fromTextField" />
 
     <TextView
         android:id="@+id/toValue"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:text="Meters"
+        app:layout_constraintBaseline_toBaselineOf="@+id/toTextField"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/toTextField"
-        app:layout_constraintTop_toBottomOf="@+id/fromValue" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/toTextField" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
