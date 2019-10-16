@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         //toLabel.setText("Meters");
         //fromLabel.setText("Yards");
-        toValue.setText("Yards");
+        toValue.setText("Meters");
         fromValue.setText("Yards");
 
 
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 titleLabel.setText("Volume Converter");
                 fromField.setHint("Enter From Value");
                 toField.setHint("Enter To Value");
-                fromValue.setText("Liters");
+                fromValue.setText("Gallons");
                 toValue.setText("Liters");
                 //toLabel.setText("Gallons");
                 //fromLabel.setText("Liters");
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 titleLabel.setText("Length Converter");
                 fromField.setHint("Enter From Value");
                 toField.setHint("Enter To Value");
-                fromValue.setText("Yards");
+                fromValue.setText("Meters");
                 toValue.setText("Yards");
                 //toLabel.setText("Meters");
                 //fromLabel.setText("Yards");
@@ -166,8 +166,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == R.id.action_settings) {
         Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-        intent.putExtra("to", toValue.getText());
-        intent.putExtra("from", fromValue.getText());
+        intent.putExtra("toUnits", toValue.getText());
+        intent.putExtra("fromUnits", fromValue.getText());
         startActivityForResult(intent, VICE_SELECTION);
         //finish();
         return true;
@@ -180,8 +180,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
     if (requestCode == VICE_SELECTION) {
-        toValue.setText(data.getStringExtra("to"));
-        fromValue.setText(data.getStringExtra("from"));
+        toValue.setText(data.getStringExtra("toUnits"));
+        fromValue.setText(data.getStringExtra("fromUnits"));
     }
 }
 

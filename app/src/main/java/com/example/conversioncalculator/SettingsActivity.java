@@ -15,6 +15,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import static com.example.conversioncalculator.MainActivity.mode;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -29,68 +31,95 @@ public class SettingsActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // retrieve input params
+        Intent intent = getIntent();
+        //mode = intent.getStringExtra("mode");
+        fromSelection = intent.getStringExtra("fromUnits");
+        toSelection = intent.getStringExtra("toUnits");
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
-                intent.putExtra("to", toSelection);
-                intent.putExtra("from", fromSelection);
+                intent.putExtra("toUnits", toSelection);
+                intent.putExtra("fromUnits", fromSelection);
                 setResult(MainActivity.VICE_SELECTION, intent);
 
                 finish();
             }
         });
 
-        Spinner fromSpinner = (Spinner) findViewById(R.id.settings_from);
-        Spinner toSpinner = (Spinner) findViewById(R.id.settings_to);
+
+        ArrayList<String> vals = new ArrayList<String>();
+        int selection = 0;
+
+
         ArrayAdapter<CharSequence> adapter;
 
         if(mode == 0) {
-            adapter = ArrayAdapter.createFromResource(this, R.array.length_units, android.R.layout.simple_spinner_item);
-        }
-        else {
-            adapter = ArrayAdapter.createFromResource(this, R.array.volume_units, android.R.layout.simple_spinner_item);
+            for (UnitsConverter.LengthUnits unit : UnitsConverter.LengthUnits.values()) {
+                vals.add(unit.toString());
+            }
+        } else {
+            for (UnitsConverter.VolumeUnits unit : UnitsConverter.VolumeUnits.values()) {
+                vals.add(unit.toString());
+            }
         }
 
-        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        ArrayAdapter<String> unitAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, vals);
 
-        toSpinner.setAdapter(adapter);
-        fromSpinner.setAdapter(adapter);
+        Spinner fromSpinner = findViewById(R.id.settings_from);
+        fromSpinner.setAdapter(unitAdapter);
+
+        fromSpinner.setSelection(0);
 
         fromSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-               fromSelection = (String) parent.getItemAtPosition(position);
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                fromSelection = (String) adapterView.getItemAtPosition(i);
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
+
+        Spinner toSpinner = findViewById(R.id.settings_to);
+        toSpinner.setAdapter(unitAdapter);
+        toSpinner.setSelection(0);
 
         toSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                toSelection = (String) parent.getItemAtPosition(position);
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                toSelection = (String) adapterView.getItemAtPosition(i);
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
 
 
+        // set initial val of spinners.
+        for(int i=0; i<vals.size(); i++) {
+            if (fromSelection.intern() == vals.get(i)) {
+                fromSpinner.setSelection(i);
+            }
+            if (toSelection.intern() == vals.get(i)) {
+                toSpinner.setSelection(i);
+            }
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == VICE_SELECTION) {
-            toSelection = (data.getStringExtra("to"));
-            fromSelection = (data.getStringExtra("from"));
+            toSelection = (data.getStringExtra("toUnits"));
+            fromSelection = (data.getStringExtra("fromUnits"));
         }
     }
 
